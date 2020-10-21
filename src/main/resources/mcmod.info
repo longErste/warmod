@@ -1,0 +1,17 @@
+[
+  {
+    "modid": "WarMod",
+    "name": "War of Minecrafts",
+    "description": "A mod where teams of players try to destroy the others base",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Longinus Erste"
+    ],
+    "credits": "GusGor",
+    "logoFile": "",
+    "screenshots": []
+  }
+]
