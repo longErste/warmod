@@ -2,8 +2,11 @@ package longerste.warmod.proxy;
 
 import java.io.File;
 import longerste.warmod.Config;
+import longerste.warmod.ModBlocks;
+import longerste.warmod.blocks.Foundation;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -34,10 +37,12 @@ public class CommonProxy {
 
   @SubscribeEvent
   public static void registerBlocks(RegistryEvent.Register<Block> event) {
+    event.getRegistry().register(new Foundation());
   }
 
   @SubscribeEvent
   public static void registerItems(RegistryEvent.Register<Item> event) {
+    event.getRegistry().register(new ItemBlock(ModBlocks.foundation).setRegistryName(ModBlocks.foundation.getRegistryName()));
   }
 
 }
