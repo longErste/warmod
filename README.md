@@ -6,7 +6,6 @@ What does this mod add ? A race to destroy the other team's special block.
 
 - [ ] TeamGUI
 
-  - [ ] Member management
   - [ ] Make sub-base block
   - [ ] Make base building block
   - [ ] Declare war
