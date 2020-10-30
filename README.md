@@ -1,4 +1,4 @@
-# War of Minecraft
+# Epics of Raids and Destruction
 
 What does this mod add ? A race to destroy the other team's special block.
 

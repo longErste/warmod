@@ -1,7 +1,7 @@
 [
   {
     "modid": "warmod",
-    "name": "War of Minecraft",
+    "name": "Epics of Raids and Destruction",
     "description": "A mod where teams of players try to destroy the others base",
     "version": "${version}",
     "mcversion": "${mcversion}",

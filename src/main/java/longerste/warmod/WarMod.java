@@ -16,7 +16,7 @@ import org.apache.logging.log4j.Logger;
     useMetadata = true)
 public class WarMod {
   public static final String MODID = "warmod";
-  public static final String MODNAME = "War of Minecraft";
+  public static final String MODNAME = "Epics of Raids and Destruction";
   public static final String MODVERSION = "alpha-dev";
 
   @SidedProxy(
