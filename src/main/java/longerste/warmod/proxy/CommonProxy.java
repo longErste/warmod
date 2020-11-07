@@ -3,7 +3,7 @@ package longerste.warmod.proxy;
 import java.io.File;
 import longerste.warmod.Config;
 import longerste.warmod.TeamBlocks;
-import longerste.warmod.blocks.Foundation;
+import longerste.warmod.block.Foundation;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
