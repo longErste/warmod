@@ -2,13 +2,14 @@ package longerste.warmod.proxy;
 
 import java.io.File;
 import longerste.warmod.Config;
-import longerste.warmod.ModBlocks;
+import longerste.warmod.TeamBlocks;
 import longerste.warmod.blocks.Foundation;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -41,8 +42,8 @@ public class CommonProxy {
   }
 
   @SubscribeEvent
-  public static void registerItems(RegistryEvent.Register<Item> event) {
-    event.getRegistry().register(new ItemBlock(ModBlocks.foundation).setRegistryName(ModBlocks.foundation.getRegistryName()));
+  public static void registerItems(Register<Item> event) {
+    event.getRegistry().register(new ItemBlock(TeamBlocks.foundation).setRegistryName(TeamBlocks.foundation.getRegistryName()));
   }
 
 }
