@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "warmod:blocks/foundation_base",
+    "down": "warmod:blocks/foundation_base",
+    "up": "warmod:blocks/foundation_top",
+    "east": "warmod:blocks/foundation_side",
+    "west": "warmod:blocks/foundation_side",
+    "north": "warmod:blocks/foundation_side",
+    "south": "warmod:blocks/foundation_side"
+  }
+}
