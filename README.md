@@ -13,10 +13,8 @@ What does this mod add ? A race to destroy the other team's special block.
 - [ ] A foundation block:
 
   - [ ] Tiers
-  - [ ] Generate resources
   - [ ] Only able to set spawn in a (upgradable) certain radius
   - [ ] Make the block in the certain radius harder to break for non teammate
-  - [ ] Tick acceleration
   - [ ] When other team enters will trigger
     - [ ] Spawn guardian
     - [ ] Warning on players
@@ -36,7 +34,7 @@ What does this mod add ? A race to destroy the other team's special block.
 
   - [ ] Can give armour, swords and jetpack to upgrade
   - [ ] Can be told to:
-    - [ ] Always Present
+    - [ ] Guard a place
     - [ ] Spawn a few blocks next to intruding players
 
 - [ ] Base Building Block
@@ -47,3 +45,9 @@ What does this mod add ? A race to destroy the other team's special block.
 
   - [ ] An automatable inventory with power output or fluid output
 
+- [ ] Special Abilities
+    The team can only choose one of the following, and it should be an op upgrade tree 
+  - [ ] Tick Acceleration
+  - [ ] Generate Power
+  - [ ] Void Miner
+  - [ ] Better Defense
