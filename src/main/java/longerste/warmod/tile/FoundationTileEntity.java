@@ -24,19 +24,20 @@ public class FoundationTileEntity extends TileEntity {
 
   @Override
   public void readFromNBT(NBTTagCompound compound) {
-    compound.setFloat("hardness", hardness);
-    super.readFromNBT(compound);
     if (compound.hasKey("items")) {
       itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
     }
+    if (compound.hasKey("hardness")) {
+      this.hardness = compound.getFloat("hardness");
+    }
+    super.readFromNBT(compound);
   }
 
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-    hardness = compound.getFloat("hardness");
+    compound.setFloat("hardness", this.hardness);
     compound.setTag("items", itemStackHandler.serializeNBT());
-    super.writeToNBT(compound);
-    return compound;
+    return super.writeToNBT(compound);
   }
 
   public boolean canInteractWith(EntityPlayer playerIn) {
@@ -60,20 +61,20 @@ public class FoundationTileEntity extends TileEntity {
   }
 
   public void decreaseHardness() {
-    if (hardness > MIN_HARDNESS) {
-      hardness--;
+    if (this.hardness > MIN_HARDNESS) {
+      this.hardness--;
     }
     markDirty();
   }
 
   public void increaseHardness() {
-    if (hardness < MAX_HARDNESS) {
-      hardness++;
+    if (this.hardness < MAX_HARDNESS) {
+      this.hardness++;
     }
     markDirty();
   }
 
   public float getHardness() {
-    return hardness;
+    return this.hardness;
   }
 }

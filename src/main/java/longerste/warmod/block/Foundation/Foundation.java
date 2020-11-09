@@ -70,7 +70,7 @@ public class Foundation extends Block {
       return true;
     }
     TileEntity te = worldIn.getTileEntity(pos);
-    if(!(te instanceof FoundationTileEntity)) {
+    if (!(te instanceof FoundationTileEntity)) {
       return false;
     }
     playerIn.openGui(WarMod.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
