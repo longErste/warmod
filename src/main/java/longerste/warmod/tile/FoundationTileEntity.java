@@ -9,10 +9,16 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class FoundationTileEntity extends TileEntity {
-  private final float MIN_HARDNESS = 5f;
-  private final float MAX_HARDNESS = 1000f;
-  private float hardness = MIN_HARDNESS;
+  // Constants
+  public final float MIN_HARDNESS = 5f;
+  public final float MAX_HARDNESS = 1000f;
   public static final int SIZE = 9;
+  public static final int[] upgradePoints = {10, 20};
+
+  // Fields
+  private float hardness;
+  private int tier;
+  private int points;
 
   private ItemStackHandler itemStackHandler =
       new ItemStackHandler(SIZE) {
@@ -22,21 +28,35 @@ public class FoundationTileEntity extends TileEntity {
         }
       };
 
+  public FoundationTileEntity() {
+    hardness =5;
+    tier = 0;
+    points = upgradePoints[0];
+  }
+
   @Override
   public void readFromNBT(NBTTagCompound compound) {
     if (compound.hasKey("items")) {
       itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
     }
     if (compound.hasKey("hardness")) {
-      this.hardness = compound.getFloat("hardness");
+      hardness = compound.getFloat("hardness");
+    }
+    if (compound.hasKey("tier")) {
+      tier = compound.getInteger("tier");
+    }
+    if (compound.hasKey("upPoints")) {
+      points = compound.getInteger("upPoints");
     }
     super.readFromNBT(compound);
   }
 
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-    compound.setFloat("hardness", this.hardness);
+    compound.setFloat("hardness", hardness);
     compound.setTag("items", itemStackHandler.serializeNBT());
+    compound.setInteger("tier", tier);
+    compound.setInteger("upPoints", points);
     return super.writeToNBT(compound);
   }
 
@@ -61,20 +81,42 @@ public class FoundationTileEntity extends TileEntity {
   }
 
   public void decreaseHardness() {
-    if (this.hardness > MIN_HARDNESS) {
-      this.hardness--;
+    if (hardness > MIN_HARDNESS) {
+      --hardness;
+      ++points;
     }
     markDirty();
   }
 
   public void increaseHardness() {
-    if (this.hardness < MAX_HARDNESS) {
-      this.hardness++;
+    if (hardness < MAX_HARDNESS && points > 0) {
+      ++hardness;
+      --points;
     }
     markDirty();
   }
 
   public float getHardness() {
-    return this.hardness;
+    return hardness;
+  }
+
+  public int getPointUpper() {
+    return upgradePoints[tier];
+  }
+
+  public int getPoints() {
+    return points;
+  }
+
+  public int getTier() {
+    return tier;
+  }
+
+  public void upgrade() {
+    if (tier < upgradePoints.length - 1) {
+      points += upgradePoints[tier + 1] - upgradePoints[tier];
+      tier += 1;
+    }
+    markDirty();
   }
 }
