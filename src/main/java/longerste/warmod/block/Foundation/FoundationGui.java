@@ -1,19 +1,25 @@
 package longerste.warmod.block.Foundation;
 
 import longerste.warmod.WarMod;
+import longerste.warmod.networking.PacketModifyFoundation;
+import longerste.warmod.networking.WarModPakcetHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class FoundationGui extends GuiContainer {
   public static final int WIDTH = 180;
   public static final int HEIGHT = 152;
-  private FoundationTileEntity te;
+  private final FoundationTileEntity te;
 
   private static final ResourceLocation background =
       new ResourceLocation(WarMod.MODID, "textures/gui/foundation.png");
+
+  public SimpleNetworkWrapper instance = WarModPakcetHandler.INSTANCE;
 
   public FoundationGui(FoundationTileEntity te, FoundationContainer container) {
     super(container);
@@ -31,14 +37,11 @@ public class FoundationGui extends GuiContainer {
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
     String points = "Upgrade Points: " + te.getPoints() + " pts / " + te.getPointUpper() + "pts";
-    String level =
-        "Lv: "
-            + (te.getTier() + 1)
-            + " / "
-            + FoundationTileEntity.upgradePoints.length;
+    String level = "Lv: " + (te.getTier() + 1) + " / " + FoundationTileEntity.upgradePoints.length;
     String hardness = "Hardness: " + te.getHardness();
 
-    this.fontRenderer.drawString(level, this.xSize/2 - this.fontRenderer.getStringWidth(level) /2, 25, 4210752);
+    this.fontRenderer.drawString(
+        level, this.xSize / 2 - this.fontRenderer.getStringWidth(level) / 2, 25, 4210752);
     this.fontRenderer.drawString(hardness, 8, 35, 4210752);
     this.fontRenderer.drawString(points, 8, 45, 4210752);
   }
@@ -54,16 +57,20 @@ public class FoundationGui extends GuiContainer {
 
   @Override
   protected void actionPerformed(GuiButton button) {
+    BlockPos tePos = te.getPos();
     if (button.id == 1) {
-      te.increaseHardness();
+      te.setHardness(1);
       this.mc.player.sendMessage(new TextComponentString("Hardness " + te.getHardness()));
+      instance.sendToServer(new PacketModifyFoundation(tePos.getX(), tePos.getY(), tePos.getZ(), 2, 1));
     }
     if (button.id == 2) {
-      te.decreaseHardness();
+      te.setHardness(-1);
       this.mc.player.sendMessage(new TextComponentString("Hardness " + te.getHardness()));
+      instance.sendToServer(new PacketModifyFoundation(tePos.getX(), tePos.getY(), tePos.getZ(), 2, -1));
     }
     if (button.id == 3) {
       te.upgrade();
+      instance.sendToServer(new PacketModifyFoundation(tePos.getX(), tePos.getY(), tePos.getZ(), 1, 0));
     }
   }
 }

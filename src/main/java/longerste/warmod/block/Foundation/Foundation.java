@@ -25,7 +25,7 @@ public class Foundation extends Block {
   public Foundation() {
     super(Material.IRON);
     setUnlocalizedName(WarMod.MODID + "." + blockName);
-    setRegistryName(blockName);
+    setRegistryName("foundation");
     this.setHardness(5f);
   }
 

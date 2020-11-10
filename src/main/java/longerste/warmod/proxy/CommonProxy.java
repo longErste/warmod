@@ -5,6 +5,9 @@ import longerste.warmod.Config;
 import longerste.warmod.TeamBlocks;
 import longerste.warmod.WarMod;
 import longerste.warmod.block.Foundation.Foundation;
+import longerste.warmod.networking.PacketModifyFoundation;
+import longerste.warmod.networking.PacketModifyFoundation.PacketModifyFoundationHandler;
+import longerste.warmod.networking.WarModPakcetHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -19,6 +22,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
@@ -33,7 +37,8 @@ public class CommonProxy {
 
   public void init(FMLInitializationEvent e) {
     NetworkRegistry.INSTANCE.registerGuiHandler(WarMod.instance, new GuiProxy());
-
+    WarModPakcetHandler.INSTANCE.registerMessage(
+        PacketModifyFoundationHandler.class, PacketModifyFoundation.class, 0, Side.SERVER);
   }
   public void postInit(FMLPostInitializationEvent e) {
     if (config.hasChanged()) {
@@ -44,7 +49,7 @@ public class CommonProxy {
   @SubscribeEvent
   public static void registerBlocks(RegistryEvent.Register<Block> event) {
     event.getRegistry().register(new Foundation());
-    GameRegistry.registerTileEntity(FoundationTileEntity.class, WarMod.MODID + "_" + Foundation.blockName);
+    GameRegistry.registerTileEntity(FoundationTileEntity.class, WarMod.MODID + "_foundation");
   }
 
   @SubscribeEvent
