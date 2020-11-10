@@ -1,5 +1,6 @@
 package longerste.warmod.tile;
 
+import longerste.warmod.WarMod;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -16,9 +17,9 @@ public class FoundationTileEntity extends TileEntity {
   public static final int[] upgradePoints = {10, 20};
 
   // Fields
-  private float hardness;
-  private int tier;
-  private int points;
+  private float hardness = 5f;
+  private int tier = 0;
+  private int points = upgradePoints[tier];
 
   private ItemStackHandler itemStackHandler =
       new ItemStackHandler(SIZE) {
@@ -28,14 +29,9 @@ public class FoundationTileEntity extends TileEntity {
         }
       };
 
-  public FoundationTileEntity() {
-    hardness =5;
-    tier = 0;
-    points = upgradePoints[0];
-  }
-
   @Override
   public void readFromNBT(NBTTagCompound compound) {
+    super.readFromNBT(compound);
     if (compound.hasKey("items")) {
       itemStackHandler.deserializeNBT((NBTTagCompound) compound.getTag("items"));
     }
@@ -48,17 +44,19 @@ public class FoundationTileEntity extends TileEntity {
     if (compound.hasKey("upPoints")) {
       points = compound.getInteger("upPoints");
     }
-    super.readFromNBT(compound);
   }
 
   @Override
   public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+    compound = super.writeToNBT(compound);
     compound.setFloat("hardness", hardness);
     compound.setTag("items", itemStackHandler.serializeNBT());
     compound.setInteger("tier", tier);
+    System.out.println(points);
     compound.setInteger("upPoints", points);
-    return super.writeToNBT(compound);
+    return compound;
   }
+
 
   public boolean canInteractWith(EntityPlayer playerIn) {
     return !isInvalid() && playerIn.getDistanceSq(pos.add(0.5D, 0.5D, 0.5D)) <= 64D;
