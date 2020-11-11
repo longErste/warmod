@@ -14,8 +14,4 @@ public class ClientProxy extends CommonProxy{
   public void preInit(FMLPreInitializationEvent e) {
     super.preInit(e);
   }
-  @SubscribeEvent
-  public static void registerModels(ModelRegistryEvent event) {
-    TeamBlocks.initModels();
-  }
 }

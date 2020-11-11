@@ -40,6 +40,7 @@ public class CommonProxy {
     WarModPakcetHandler.INSTANCE.registerMessage(
         PacketModifyFoundationHandler.class, PacketModifyFoundation.class, 0, Side.SERVER);
   }
+
   public void postInit(FMLPostInitializationEvent e) {
     if (config.hasChanged()) {
       config.save();
@@ -54,7 +55,10 @@ public class CommonProxy {
 
   @SubscribeEvent
   public static void registerItems(Register<Item> event) {
-    event.getRegistry().register(new ItemBlock(TeamBlocks.foundation).setRegistryName(TeamBlocks.foundation.getRegistryName()));
+    event
+        .getRegistry()
+        .register(
+            new ItemBlock(TeamBlocks.foundation)
+                .setRegistryName(TeamBlocks.foundation.getRegistryName()));
   }
-
 }
