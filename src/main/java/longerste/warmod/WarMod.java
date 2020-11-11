@@ -1,5 +1,6 @@
 package longerste.warmod;
 
+import com.feed_the_beast.ftblib.FTBLib;
 import longerste.warmod.proxy.CommonProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -12,7 +13,7 @@ import org.apache.logging.log4j.Logger;
     modid = WarMod.MODID,
     name = WarMod.MODNAME,
     version = WarMod.MODVERSION,
-    dependencies = "required-after:forge@[14.23.5.2847,)",
+    dependencies = "required-after:forge@[14.23.5.2847,);required-after:" + FTBLib.MOD_ID,
     useMetadata = true)
 public class WarMod {
   public static final String MODID = "warmod";

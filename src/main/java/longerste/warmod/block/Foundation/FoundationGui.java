@@ -39,11 +39,13 @@ public class FoundationGui extends GuiContainer {
     String points = "Upgrade Points: " + te.getPoints() + " pts / " + te.getPointUpper() + "pts";
     String level = "Lv: " + (te.getTier() + 1) + " / " + FoundationTileEntity.upgradePoints.length;
     String hardness = "Hardness: " + te.getHardness();
+    String team = "Team: " + te.getTeamId();
 
+    this.fontRenderer.drawString(team, 8, 25, 4210752);
     this.fontRenderer.drawString(
-        level, this.xSize / 2 - this.fontRenderer.getStringWidth(level) / 2, 25, 4210752);
-    this.fontRenderer.drawString(hardness, 8, 35, 4210752);
-    this.fontRenderer.drawString(points, 8, 45, 4210752);
+        level, this.xSize / 2 - this.fontRenderer.getStringWidth(level) / 2, 35, 4210752);
+    this.fontRenderer.drawString(hardness, 8, 45, 4210752);
+    this.fontRenderer.drawString(points, 8, 55, 4210752);
   }
 
   @Override
@@ -61,16 +63,16 @@ public class FoundationGui extends GuiContainer {
     if (button.id == 1) {
       te.setHardness(1);
       this.mc.player.sendMessage(new TextComponentString("Hardness " + te.getHardness()));
-      instance.sendToServer(new PacketModifyFoundation(tePos.getX(), tePos.getY(), tePos.getZ(), 2, 1));
+      instance.sendToServer(new PacketModifyFoundation(tePos, 2, 1));
     }
     if (button.id == 2) {
       te.setHardness(-1);
       this.mc.player.sendMessage(new TextComponentString("Hardness " + te.getHardness()));
-      instance.sendToServer(new PacketModifyFoundation(tePos.getX(), tePos.getY(), tePos.getZ(), 2, -1));
+      instance.sendToServer(new PacketModifyFoundation(tePos, 2, -1));
     }
     if (button.id == 3) {
       te.upgrade();
-      instance.sendToServer(new PacketModifyFoundation(tePos.getX(), tePos.getY(), tePos.getZ(), 1, 0));
+      instance.sendToServer(new PacketModifyFoundation(tePos, 1, 0));
     }
   }
 }

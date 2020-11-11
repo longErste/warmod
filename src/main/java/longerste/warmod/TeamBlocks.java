@@ -9,10 +9,4 @@ public class TeamBlocks {
 
   @GameRegistry.ObjectHolder("warmod:foundation")
   public static Foundation foundation;
-
-  @SideOnly(Side.CLIENT)
-  public static void initModels() {
-    foundation.initModel();
-  }
-
 }

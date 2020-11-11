@@ -24,6 +24,14 @@ public class PacketModifyFoundation implements IMessage {
     this.value = value;
   }
 
+  public PacketModifyFoundation(BlockPos pos, int field, int value) {
+    this.xPos = pos.getX();
+    this.yPos = pos.getY();
+    this.zPos = pos.getZ();
+    this.field = field;
+    this.value = value;
+  }
+
   @Override
   public void toBytes(ByteBuf buf) {
     buf.writeInt(xPos);

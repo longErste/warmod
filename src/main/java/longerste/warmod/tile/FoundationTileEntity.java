@@ -1,5 +1,8 @@
 package longerste.warmod.tile;
 
+import com.feed_the_beast.ftblib.lib.data.ForgeTeam;
+import com.feed_the_beast.ftblib.lib.data.Universe;
+import longerste.warmod.Config;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -12,13 +15,13 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class FoundationTileEntity extends TileEntity {
   // Constants
-  public final float MIN_HARDNESS = 5f;
-  public final float MAX_HARDNESS = 1000f;
+  public final float MIN_HARDNESS = (float) Config.minimumHardness;
+  public final float MAX_HARDNESS = (float) Config.maximumHardness;
   public static final int SIZE = 9;
   public static final int[] upgradePoints = {10, 20};
 
   // Fields
-  private float hardness = 5f;
+  private float hardness = (float) Config.startingHardness;
   private int tier = 0;
   private int points = upgradePoints[tier];
 
@@ -29,6 +32,7 @@ public class FoundationTileEntity extends TileEntity {
           FoundationTileEntity.this.markDirty();
         }
       };
+  private short team;
 
   @Override
   public void readFromNBT(NBTTagCompound compound) {
@@ -45,6 +49,9 @@ public class FoundationTileEntity extends TileEntity {
     if (compound.hasKey("upPoints")) {
       points = compound.getInteger("upPoints");
     }
+    if (compound.hasKey("team")) {
+      team = compound.getShort("team");
+    }
   }
 
   @Override
@@ -53,14 +60,14 @@ public class FoundationTileEntity extends TileEntity {
     compound.setFloat("hardness", hardness);
     compound.setTag("items", itemStackHandler.serializeNBT());
     compound.setInteger("tier", tier);
-    System.out.println(points);
     compound.setInteger("upPoints", points);
+    compound.setShort("team", team);
     return compound;
   }
 
   @Override
   public NBTTagCompound getUpdateTag() {
-    // getUpdateTag() is called whenever the chunkdata is sent to the
+    // getUpdateTag() is called whenever the chunk's data is sent to the
     // client. In contrast getUpdatePacket() is called when the tile entity
     // itself wants to sync to the client. In many cases you want to send
     // over the same information in getUpdateTag() as in getUpdatePacket().
@@ -120,6 +127,31 @@ public class FoundationTileEntity extends TileEntity {
     return tier;
   }
 
+  public void setTeam(ForgeTeam team) {
+    if (!hasTeam()) {
+      this.team = team.getUID();
+    }
+  }
+
+  public void setTeam(short uid) {
+    if (!hasTeam()) {
+      this.team = uid;
+      markDirty();
+    }
+  }
+
+  public short getTeamId() {
+    return this.team;
+  }
+
+  public ForgeTeam getTeam() {
+    return Universe.get().getTeam(team);
+  }
+
+  public boolean hasTeam() {
+    return Universe.get().getTeam(team).isValid();
+  }
+
   public void upgrade() {
     if (tier < upgradePoints.length - 1) {
       points += upgradePoints[tier + 1] - upgradePoints[tier];
@@ -130,7 +162,7 @@ public class FoundationTileEntity extends TileEntity {
 
   public void setHardness(int amount) {
     float newHardness = hardness + amount;
-    if(MIN_HARDNESS < newHardness && newHardness < MAX_HARDNESS && points > amount) {
+    if (MIN_HARDNESS <= newHardness && newHardness <= MAX_HARDNESS && points >= amount) {
       points -= amount;
       hardness += amount;
       markDirty();

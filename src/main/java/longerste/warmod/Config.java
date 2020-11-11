@@ -37,6 +37,9 @@ public class Config {
   public static String enableTeamGUIComment = "Enable The Team GUI functionality";
 
   // Foundation Settings
+  public static int minimumHardness = 50;
+  public static int maximumHardness = 50000;
+  public static int startingHardness = 100;
 
   // Side Base Settings
   public static boolean enableSideBase = true;
@@ -101,6 +104,9 @@ public class Config {
 
   private static void initFoundationConfig(Configuration cfg) {
     cfg.addCustomCategoryComment(CATEGORY_FOUNDATION, "Config on the foundation block");
+    minimumHardness = cfg.getInt("Minimum_Hardness", CATEGORY_FOUNDATION, minimumHardness, 5, maximumHardness, "min 5" );
+    maximumHardness = cfg.getInt("Maximum_Hardness", CATEGORY_FOUNDATION, maximumHardness, minimumHardness, 100000, "max 50000");
+    startingHardness = cfg.getInt("Starting_Hardness", CATEGORY_FOUNDATION, startingHardness, minimumHardness, maximumHardness, "Starting Hardness");
   }
 
   private static void initSBConfig(Configuration cfg) {
