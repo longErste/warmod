@@ -10,8 +10,9 @@ What does this mod add ? A race to destroy the other team's special block.
   - [ ] Make base building block
   - [ ] Declare war
 
-- [ ] A foundation block:
+- [x] A foundation block:
 
+  - [x] Dynamic Hardness
   - [ ] Tiers
   - [ ] Only able to set spawn in a (upgradable) certain radius
   - [ ] Make the block in the certain radius harder to break for non teammate

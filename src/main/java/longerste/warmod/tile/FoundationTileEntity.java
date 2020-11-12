@@ -18,6 +18,7 @@ public class FoundationTileEntity extends TileEntity {
   public final float MIN_HARDNESS = (float) Config.minimumHardness;
   public final float MAX_HARDNESS = (float) Config.maximumHardness;
   public static final int SIZE = 9;
+  public static final int SumOfStartingPoints = Config.startingHardness;
   public static final int[] upgradePoints = {10, 20};
 
   // Fields
@@ -115,10 +116,6 @@ public class FoundationTileEntity extends TileEntity {
     return hardness;
   }
 
-  public int getPointUpper() {
-    return upgradePoints[tier];
-  }
-
   public int getPoints() {
     return points;
   }
@@ -158,6 +155,10 @@ public class FoundationTileEntity extends TileEntity {
       tier += 1;
       markDirty();
     }
+  }
+
+  public int getMaxPoints() {
+    return upgradePoints[tier] + SumOfStartingPoints;
   }
 
   public void setHardness(int amount) {

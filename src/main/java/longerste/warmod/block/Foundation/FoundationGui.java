@@ -36,7 +36,7 @@ public class FoundationGui extends GuiContainer {
 
   @Override
   protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-    String points = "Upgrade Points: " + te.getPoints() + " pts / " + te.getPointUpper() + "pts";
+    String points = "Upgrade Points: " + te.getPoints() + " pts / " + te.getMaxPoints() + "pts";
     String level = "Lv: " + (te.getTier() + 1) + " / " + FoundationTileEntity.upgradePoints.length;
     String hardness = "Hardness: " + te.getHardness();
     String team = "Team: " + te.getTeamId();
