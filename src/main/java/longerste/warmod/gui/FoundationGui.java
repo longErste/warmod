@@ -1,8 +1,9 @@
-package longerste.warmod.block.Foundation;
+package longerste.warmod.gui;
 
 import longerste.warmod.WarMod;
+import longerste.warmod.block.Foundation.FoundationContainer;
 import longerste.warmod.networking.PacketModifyFoundation;
-import longerste.warmod.networking.WarModPakcetHandler;
+import longerste.warmod.networking.WarModNetworkingHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -19,7 +20,7 @@ public class FoundationGui extends GuiContainer {
   private static final ResourceLocation background =
       new ResourceLocation(WarMod.MODID, "textures/gui/foundation.png");
 
-  public SimpleNetworkWrapper instance = WarModPakcetHandler.INSTANCE;
+  public SimpleNetworkWrapper instance = WarModNetworkingHandler.INSTANCE;
 
   public FoundationGui(FoundationTileEntity te, FoundationContainer container) {
     super(container);

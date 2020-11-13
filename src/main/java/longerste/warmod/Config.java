@@ -58,7 +58,7 @@ public class Config {
   public static String enableOutputComment = "Enable The Output block functionality";
 
   public static void readConfig() {
-    Configuration cfg = CommonProxy.config;
+    Configuration cfg = WarMod.config;
 
     try {
       cfg.load();

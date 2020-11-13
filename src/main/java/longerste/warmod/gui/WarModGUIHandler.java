@@ -1,7 +1,6 @@
-package longerste.warmod.proxy;
+package longerste.warmod.gui;
 
 import longerste.warmod.block.Foundation.FoundationContainer;
-import longerste.warmod.block.Foundation.FoundationGui;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -9,7 +8,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 
-public class GuiProxy implements IGuiHandler {
+public class WarModGUIHandler implements IGuiHandler {
 
   @Override
   public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {

@@ -32,6 +32,18 @@ public class PacketModifyFoundation implements IMessage {
     this.value = value;
   }
 
+  public BlockPos getBlockPos(){
+    return new BlockPos(xPos, yPos, zPos);
+  }
+
+  public int getField() {
+    return field;
+  }
+
+  public int getValue() {
+    return value;
+  }
+
   @Override
   public void toBytes(ByteBuf buf) {
     buf.writeInt(xPos);
@@ -52,34 +64,4 @@ public class PacketModifyFoundation implements IMessage {
     value = buf.readInt();
   }
 
-  public static class PacketModifyFoundationHandler
-      implements IMessageHandler<PacketModifyFoundation, IMessage> {
-
-    @Override
-    public IMessage onMessage(PacketModifyFoundation message, MessageContext ctx) {
-      World world = ctx.getServerHandler().player.world;
-      TileEntity te = world.getTileEntity(new BlockPos(message.xPos, message.yPos, message.zPos));
-
-      int field = message.field;
-      int amount = message.value;
-
-      if (te instanceof FoundationTileEntity) {
-        FoundationTileEntity fte = (FoundationTileEntity) te;
-        handleMessage(fte, field, amount);
-      }
-      return null;
-    }
-
-    private void handleMessage(FoundationTileEntity fte, int field, int amount){
-      switch(field){
-        case 1:
-          fte.upgrade();
-          break;
-        case 2:
-          fte.setHardness(amount);
-          break;
-      }
-
-    }
-  }
 }

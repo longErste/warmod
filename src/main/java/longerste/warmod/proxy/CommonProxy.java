@@ -1,51 +1,20 @@
 package longerste.warmod.proxy;
 
-import java.io.File;
-import longerste.warmod.Config;
 import longerste.warmod.TeamBlocks;
 import longerste.warmod.WarMod;
 import longerste.warmod.block.Foundation.Foundation;
-import longerste.warmod.networking.PacketModifyFoundation;
-import longerste.warmod.networking.PacketModifyFoundation.PacketModifyFoundationHandler;
-import longerste.warmod.networking.WarModPakcetHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 
 @Mod.EventBusSubscriber
 public class CommonProxy {
-
-  public static Configuration config;
-
-  public void preInit(FMLPreInitializationEvent e) {
-    File directory = e.getModConfigurationDirectory();
-    config = new Configuration(new File(directory.getPath(), "WarOfMinecraft.cfg"));
-    Config.readConfig();
-  }
-
-  public void init(FMLInitializationEvent e) {
-    NetworkRegistry.INSTANCE.registerGuiHandler(WarMod.instance, new GuiProxy());
-    WarModPakcetHandler.INSTANCE.registerMessage(
-        PacketModifyFoundationHandler.class, PacketModifyFoundation.class, 0, Side.SERVER);
-  }
-
-  public void postInit(FMLPostInitializationEvent e) {
-    if (config.hasChanged()) {
-      config.save();
-    }
-  }
 
   @SubscribeEvent
   public static void registerBlocks(RegistryEvent.Register<Block> event) {
