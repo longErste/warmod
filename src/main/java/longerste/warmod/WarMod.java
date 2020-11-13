@@ -2,10 +2,8 @@ package longerste.warmod;
 
 import com.feed_the_beast.ftblib.FTBLib;
 import java.io.File;
-import longerste.warmod.networking.PacketModifyFoundation;
-import longerste.warmod.networking.PacketModifyFoundationHandler;
-import longerste.warmod.networking.WarModNetworkingHandler;
 import longerste.warmod.gui.WarModGUIHandler;
+import longerste.warmod.networking.WarModNetworkingHandler;
 import longerste.warmod.proxy.IModProxy;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -14,7 +12,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
 @Mod(
@@ -50,8 +47,7 @@ public class WarMod {
   @Mod.EventHandler
   public void init(FMLInitializationEvent e) {
     NetworkRegistry.INSTANCE.registerGuiHandler(WarMod.instance, new WarModGUIHandler());
-    WarModNetworkingHandler.INSTANCE.registerMessage(
-        PacketModifyFoundationHandler.class, PacketModifyFoundation.class, 0, Side.SERVER);
+    WarModNetworkingHandler.registerPackets();
     proxy.init(e);
   }
 

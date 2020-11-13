@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod.EventBusSubscriber
-public class CommonProxy {
+public class CommonEvents {
 
   @SubscribeEvent
   public static void registerBlocks(RegistryEvent.Register<Block> event) {

@@ -1,6 +1,5 @@
 package longerste.warmod;
 
-import longerste.warmod.proxy.CommonProxy;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
 
