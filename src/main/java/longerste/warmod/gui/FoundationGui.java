@@ -2,7 +2,7 @@ package longerste.warmod.gui;
 
 import longerste.warmod.WarMod;
 import longerste.warmod.block.Foundation.FoundationContainer;
-import longerste.warmod.networking.PacketModifyFoundation;
+import longerste.warmod.networking.ModifyFoundationMessage;
 import longerste.warmod.networking.WarModNetworkingHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.client.gui.GuiButton;
@@ -10,6 +10,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 
 public class FoundationGui extends GuiContainer {
   public static final int WIDTH = 180;
@@ -58,20 +59,21 @@ public class FoundationGui extends GuiContainer {
 
   @Override
   protected void actionPerformed(GuiButton button) {
+    SimpleNetworkWrapper instance = WarModNetworkingHandler.dispatcher;
     BlockPos tePos = te.getPos();
     if (button.id == 1) {
       te.setHardness(1);
       this.mc.player.sendMessage(new TextComponentString("Hardness " + te.getHardness()));
-      WarModNetworkingHandler.sendToServer(new PacketModifyFoundation(tePos, 2, 1));
+      instance.sendToServer(new ModifyFoundationMessage(tePos, 2, 1));
     }
     if (button.id == 2) {
       te.setHardness(-1);
       this.mc.player.sendMessage(new TextComponentString("Hardness " + te.getHardness()));
-      WarModNetworkingHandler.sendToServer(new PacketModifyFoundation(tePos, 2, -1));
+      instance.sendToServer(new ModifyFoundationMessage(tePos, 2, -1));
     }
     if (button.id == 3) {
       te.upgrade();
-      WarModNetworkingHandler.sendToServer(new PacketModifyFoundation(tePos, 1, 0));
+      instance.sendToServer(new ModifyFoundationMessage(tePos, 1, 0));
     }
   }
 }
