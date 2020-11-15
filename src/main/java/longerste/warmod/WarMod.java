@@ -2,7 +2,7 @@ package longerste.warmod;
 
 import com.feed_the_beast.ftblib.FTBLib;
 import java.io.File;
-import longerste.warmod.gui.WarModGUIHandler;
+import longerste.warmod.client.gui.WarModGUIHandler;
 import longerste.warmod.networking.WarModNetworkingHandler;
 import longerste.warmod.proxy.IModProxy;
 import net.minecraftforge.common.config.Configuration;

@@ -1,4 +1,4 @@
-package longerste.warmod.gui;
+package longerste.warmod.client.gui;
 
 import longerste.warmod.WarMod;
 import longerste.warmod.block.Foundation.FoundationContainer;

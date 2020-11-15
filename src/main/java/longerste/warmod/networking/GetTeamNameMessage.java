@@ -2,7 +2,7 @@ package longerste.warmod.networking;
 
 import com.feed_the_beast.ftblib.lib.data.Universe;
 import java.io.IOException;
-import longerste.warmod.gui.FoundationGui;
+import longerste.warmod.client.gui.FoundationGui;
 import longerste.warmod.networking.AbstractMessage.AbstractClientMessage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
