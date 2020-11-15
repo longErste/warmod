@@ -14,6 +14,7 @@ public class WarModNetworkingHandler {
 
   public static final void registerPackets() {
     registerMessage(ModifyFoundationMessage.class);
+    registerMessage(GetTeamNameMessage.class);
   }
 
   private static final <T extends AbstractMessage<T> & IMessageHandler<T, IMessage>> void registerMessage(Class <T> msgClass) {

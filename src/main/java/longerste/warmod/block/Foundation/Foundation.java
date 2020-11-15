@@ -5,10 +5,13 @@ import com.feed_the_beast.ftblib.lib.data.ForgeTeam;
 import com.feed_the_beast.ftblib.lib.data.Universe;
 import longerste.warmod.WarMod;
 import longerste.warmod.block.TeamBlockBase;
+import longerste.warmod.networking.GetTeamNameMessage;
+import longerste.warmod.networking.WarModNetworkingHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
@@ -20,6 +23,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class Foundation extends TeamBlockBase {
+
   public static final int GUI_ID = 1;
 
   public Foundation() {
@@ -62,16 +66,7 @@ public class Foundation extends TeamBlockBase {
   }
 
   @Override
-  public boolean onBlockActivated(
-      World worldIn,
-      BlockPos pos,
-      IBlockState state,
-      EntityPlayer playerIn,
-      EnumHand hand,
-      EnumFacing facing,
-      float hitX,
-      float hitY,
-      float hitZ) {
+  public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
     if (worldIn.isRemote) {
       return true;
     }
@@ -87,6 +82,9 @@ public class Foundation extends TeamBlockBase {
           && fte.getTeam().isValid()
           && fte.getTeam().equalsTeam(team)) {
         playerIn.openGui(WarMod.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
+        if (playerIn instanceof EntityPlayerMP) {
+          WarModNetworkingHandler.dispatcher.sendTo(new GetTeamNameMessage(pos, team.getTitle()), (EntityPlayerMP) playerIn);
+        }
       }
     }
     return true;

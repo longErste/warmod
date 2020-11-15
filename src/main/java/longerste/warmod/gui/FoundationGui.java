@@ -16,9 +16,11 @@ public class FoundationGui extends GuiContainer {
   public static final int WIDTH = 180;
   public static final int HEIGHT = 152;
   private final FoundationTileEntity te;
+  // private ITextComponent teamName;
 
   private static final ResourceLocation background =
       new ResourceLocation(WarMod.MODID, "textures/gui/foundation.png");
+  private String teamName;
 
 
   public FoundationGui(FoundationTileEntity te, FoundationContainer container) {
@@ -39,7 +41,7 @@ public class FoundationGui extends GuiContainer {
     String points = "Upgrade Points: " + te.getPoints() + " pts / " + te.getMaxPoints() + "pts";
     String level = "Lv: " + (te.getTier() + 1) + " / " + FoundationTileEntity.upgradePoints.length;
     String hardness = "Hardness: " + te.getHardness();
-    String team = "Team: " + te.getTeamId();
+    String team = "Team: " + teamName;
 
     this.fontRenderer.drawString(team, 8, 25, 4210752);
     this.fontRenderer.drawString(
@@ -75,5 +77,9 @@ public class FoundationGui extends GuiContainer {
       te.upgrade();
       instance.sendToServer(new ModifyFoundationMessage(tePos, 1, 0));
     }
+  }
+
+  public void setTeamName(String name) {
+    teamName = name;
   }
 }

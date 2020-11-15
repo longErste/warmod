@@ -34,6 +34,7 @@ public class FoundationTileEntity extends TileEntity {
         }
       };
   private short team;
+  private String teamName;
 
   @Override
   public void readFromNBT(NBTTagCompound compound) {
