@@ -82,9 +82,7 @@ public class Foundation extends TeamBlockBase {
           && fte.getTeam().isValid()
           && fte.getTeam().equalsTeam(team)) {
         playerIn.openGui(WarMod.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
-        if (playerIn instanceof EntityPlayerMP) {
-          WarModNetworkingHandler.dispatcher.sendTo(new GetTeamNameMessage(pos, team.getTitle()), (EntityPlayerMP) playerIn);
-        }
+        WarModNetworkingHandler.dispatcher.sendTo(new GetTeamNameMessage(pos, team.getTitle()), (EntityPlayerMP) playerIn);
       }
     }
     return true;

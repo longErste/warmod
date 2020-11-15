@@ -24,10 +24,6 @@ public class CommonEvents {
 
   @SubscribeEvent
   public static void registerItems(Register<Item> event) {
-    event
-        .getRegistry()
-        .register(
-            new ItemBlock(TeamBlocks.foundation)
-                .setRegistryName(TeamBlocks.foundation.getRegistryName()));
+    event.getRegistry().register(new ItemBlock(TeamBlocks.foundation).setRegistryName(TeamBlocks.foundation.getRegistryName()));
   }
 }

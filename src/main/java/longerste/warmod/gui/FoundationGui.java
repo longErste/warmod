@@ -16,7 +16,6 @@ public class FoundationGui extends GuiContainer {
   public static final int WIDTH = 180;
   public static final int HEIGHT = 152;
   private final FoundationTileEntity te;
-  // private ITextComponent teamName;
 
   private static final ResourceLocation background =
       new ResourceLocation(WarMod.MODID, "textures/gui/foundation.png");
