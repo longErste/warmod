@@ -3,6 +3,9 @@ package longerste.warmod.tile;
 import com.feed_the_beast.ftblib.lib.data.ForgeTeam;
 import com.feed_the_beast.ftblib.lib.data.Universe;
 import longerste.warmod.Config;
+import longerste.warmod.WarMod;
+import longerste.warmod.capability.TeamPos.ITeamPos;
+import longerste.warmod.capability.TeamPos.TeamPosProvider;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -14,13 +17,13 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class FoundationTileEntity extends TileEntity {
-  // Constants
-  public final float MIN_HARDNESS = (float) Config.minimumHardness;
-  public final float MAX_HARDNESS = (float) Config.maximumHardness;
+
   public static final int SIZE = 9;
   public static final int SumOfStartingPoints = Config.startingHardness;
   public static final int[] upgradePoints = {10, 20};
-
+  // Constants
+  public final float MIN_HARDNESS = (float) Config.minimumHardness;
+  public final float MAX_HARDNESS = (float) Config.maximumHardness;
   // Fields
   private float hardness = (float) Config.startingHardness;
   private int tier = 0;
@@ -117,6 +120,15 @@ public class FoundationTileEntity extends TileEntity {
     return hardness;
   }
 
+  public void setHardness(int amount) {
+    float newHardness = hardness + amount;
+    if (MIN_HARDNESS <= newHardness && newHardness <= MAX_HARDNESS && points >= amount) {
+      points -= amount;
+      hardness += amount;
+      markDirty();
+    }
+  }
+
   public int getPoints() {
     return points;
   }
@@ -125,25 +137,35 @@ public class FoundationTileEntity extends TileEntity {
     return tier;
   }
 
-  public void setTeam(ForgeTeam team) {
-    if (!hasTeam()) {
-      this.team = team.getUID();
-    }
-  }
-
-  public void setTeam(short uid) {
-    if (!hasTeam()) {
-      this.team = uid;
-      markDirty();
-    }
-  }
-
   public short getTeamId() {
     return this.team;
   }
 
   public ForgeTeam getTeam() {
     return Universe.get().getTeam(team);
+  }
+
+  public void setTeam(ForgeTeam team) {
+    this.setTeam(team.getUID());
+  }
+
+  public void setTeam(short uid) {
+    if (!this.getWorld().isRemote) {
+      ITeamPos teamPos = this.getWorld().getCapability(TeamPosProvider.TEAM_POS_CAP, null);
+      if (!hasTeam()) {
+        if (teamPos.hasTeam(uid)) {
+          this.team = 0;
+          WarMod.logger.warn("WTF this is impossible");
+        } else {
+          this.team = uid;
+          teamPos.setTeamBlockPos(uid, this.getPos());
+        }
+      }
+    } else if (!hasTeam()) {
+      this.team = uid;
+    }
+
+    markDirty();
   }
 
   public boolean hasTeam() {
@@ -160,14 +182,5 @@ public class FoundationTileEntity extends TileEntity {
 
   public int getMaxPoints() {
     return upgradePoints[tier] + SumOfStartingPoints;
-  }
-
-  public void setHardness(int amount) {
-    float newHardness = hardness + amount;
-    if (MIN_HARDNESS <= newHardness && newHardness <= MAX_HARDNESS && points >= amount) {
-      points -= amount;
-      hardness += amount;
-      markDirty();
-    }
   }
 }

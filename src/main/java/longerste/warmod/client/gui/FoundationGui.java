@@ -3,7 +3,7 @@ package longerste.warmod.client.gui;
 import longerste.warmod.WarMod;
 import longerste.warmod.block.Foundation.FoundationContainer;
 import longerste.warmod.networking.ModifyFoundationMessage;
-import longerste.warmod.networking.WarModNetworkingHandler;
+import longerste.warmod.networking.WMNetworkingHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -60,7 +60,7 @@ public class FoundationGui extends GuiContainer {
 
   @Override
   protected void actionPerformed(GuiButton button) {
-    SimpleNetworkWrapper instance = WarModNetworkingHandler.dispatcher;
+    SimpleNetworkWrapper instance = WMNetworkingHandler.dispatcher;
     BlockPos tePos = te.getPos();
     if (button.id == 1) {
       te.setHardness(1);

@@ -6,7 +6,7 @@ import com.feed_the_beast.ftblib.lib.data.Universe;
 import longerste.warmod.WarMod;
 import longerste.warmod.block.TeamBlockBase;
 import longerste.warmod.networking.GetTeamNameMessage;
-import longerste.warmod.networking.WarModNetworkingHandler;
+import longerste.warmod.networking.WMNetworkingHandler;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -82,7 +82,7 @@ public class Foundation extends TeamBlockBase {
           && fte.getTeam().isValid()
           && fte.getTeam().equalsTeam(team)) {
         playerIn.openGui(WarMod.instance, GUI_ID, worldIn, pos.getX(), pos.getY(), pos.getZ());
-        WarModNetworkingHandler.dispatcher.sendTo(new GetTeamNameMessage(pos, team.getTitle()), (EntityPlayerMP) playerIn);
+        WMNetworkingHandler.dispatcher.sendTo(new GetTeamNameMessage(pos, team.getTitle()), (EntityPlayerMP) playerIn);
       }
     }
     return true;

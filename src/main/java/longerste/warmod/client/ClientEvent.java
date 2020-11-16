@@ -1,6 +1,6 @@
 package longerste.warmod.client;
 
-import longerste.warmod.TeamBlocks;
+import longerste.warmod.WMBlocks;
 import longerste.warmod.WarMod;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -14,7 +14,7 @@ import net.minecraftforge.fml.relauncher.Side;
 public class ClientEvent {
   @SubscribeEvent
   public static void registerModels(ModelRegistryEvent event){
-    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(TeamBlocks.foundation),0, new ModelResourceLocation(TeamBlocks.foundation.getRegistryName(), "inventory"));
+    ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(WMBlocks.foundation),0, new ModelResourceLocation(WMBlocks.foundation.getRegistryName(), "inventory"));
   }
 
 }

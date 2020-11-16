@@ -2,9 +2,16 @@ package longerste.warmod;
 
 import com.feed_the_beast.ftblib.FTBLib;
 import java.io.File;
-import longerste.warmod.client.gui.WarModGUIHandler;
-import longerste.warmod.networking.WarModNetworkingHandler;
+import longerste.warmod.capability.TeamPos.ITeamPos;
+import longerste.warmod.capability.TeamPos.TeamPos;
+import longerste.warmod.capability.TeamPos.TeamPosStorage;
+import longerste.warmod.capability.WMCapabilityHandler;
+import longerste.warmod.client.gui.WMGUIHandler;
+import longerste.warmod.networking.WMNetworkingHandler;
 import longerste.warmod.proxy.IModProxy;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -46,8 +53,10 @@ public class WarMod {
 
   @Mod.EventHandler
   public void init(FMLInitializationEvent e) {
-    NetworkRegistry.INSTANCE.registerGuiHandler(WarMod.instance, new WarModGUIHandler());
-    WarModNetworkingHandler.registerPackets();
+    NetworkRegistry.INSTANCE.registerGuiHandler(WarMod.instance, new WMGUIHandler());
+    CapabilityManager.INSTANCE.register(ITeamPos.class, new TeamPosStorage(), TeamPos.class);
+    MinecraftForge.EVENT_BUS.register(new WMCapabilityHandler());
+    WMNetworkingHandler.registerPackets();
     proxy.init(e);
   }
 

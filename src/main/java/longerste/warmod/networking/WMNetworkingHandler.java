@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.relauncher.Side;
 
-public class WarModNetworkingHandler {
+public class WMNetworkingHandler {
   public static final SimpleNetworkWrapper dispatcher =
       NetworkRegistry.INSTANCE.newSimpleChannel(WarMod.MODID);
   private static int packetId = 0;
