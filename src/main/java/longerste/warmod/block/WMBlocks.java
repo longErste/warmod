@@ -1,4 +1,4 @@
-package longerste.warmod;
+package longerste.warmod.block;
 
 import longerste.warmod.block.Foundation.Foundation;
 import net.minecraftforge.fml.common.registry.GameRegistry;

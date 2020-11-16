@@ -10,7 +10,6 @@ import longerste.warmod.client.gui.WMGUIHandler;
 import longerste.warmod.networking.WMNetworkingHandler;
 import longerste.warmod.proxy.IModProxy;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;

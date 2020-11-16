@@ -1,9 +1,9 @@
 package longerste.warmod.proxy;
 
-import longerste.warmod.WMBlocks;
+import longerste.warmod.block.WMBlocks;
 import longerste.warmod.WarMod;
 import longerste.warmod.block.Foundation.Foundation;
-import longerste.warmod.item.TeamItemBlock;
+import longerste.warmod.item.FoundationItemBlock;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -25,12 +25,7 @@ public class CommonEvents {
 
   @SubscribeEvent
   public static void registerItems(Register<Item> event) {
-    ItemBlock foundationItemBlock = new TeamItemBlock(WMBlocks.foundation);
-
-    //TODO make it impossible to place when the team already have a foundation
-
-    foundationItemBlock.setRegistryName(WMBlocks.foundation.getRegistryName());
-    foundationItemBlock.setMaxStackSize(1);
+    ItemBlock foundationItemBlock = new FoundationItemBlock(WMBlocks.foundation);
     event.getRegistry().register(foundationItemBlock);
   }
 }

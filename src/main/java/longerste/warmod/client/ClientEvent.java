@@ -1,6 +1,6 @@
 package longerste.warmod.client;
 
-import longerste.warmod.WMBlocks;
+import longerste.warmod.block.WMBlocks;
 import longerste.warmod.WarMod;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
