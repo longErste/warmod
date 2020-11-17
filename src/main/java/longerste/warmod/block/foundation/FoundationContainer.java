@@ -1,4 +1,4 @@
-package longerste.warmod.block.Foundation;
+package longerste.warmod.block.foundation;
 
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.entity.player.EntityPlayer;

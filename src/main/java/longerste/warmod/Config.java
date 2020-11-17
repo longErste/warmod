@@ -4,6 +4,7 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.Level;
 
 public class Config {
+
   private static final String CATEGORY_GENERAL = "General";
   private static final String CATEGORY_GUI = "TeamGUI";
   private static final String CATEGORY_FOUNDATION = "Foundation Block";
@@ -13,10 +14,6 @@ public class Config {
   private static final String CATEGORY_OUTPUT = "Output";
 
   // General Settings
-  public static boolean enableMod = true;
-  public static String enableModComment =
-      "Why not just uninstalled when you disable the whole mod ?";
-
   public static boolean enableModChunkloading = true;
   public static String enableModChunkLoadingComment =
       " Enable the chunkloading funciton of this mod";
@@ -27,9 +24,6 @@ public class Config {
 
   public static boolean enableCustomTier = true;
   public static String enableCustomTierComment = "True when custom tier of bases are enabled";
-
-  public static int maxNoOfTeams = 20;
-  public static String maxNoOfTeamsComment = "Maximum numbers of team";
 
   // GUI Settings
   public static boolean enableTeamGUI = true;
@@ -47,6 +41,7 @@ public class Config {
   // Base Building Settings
   public static boolean enableBaseBuilding = true;
   public static String enableBaseBuildingComment = "Enable The Base Building functionality";
+  public static int defaultHardness = 50;
 
   // Guardians Settings
   public static boolean enableGuardians = true;
@@ -83,8 +78,6 @@ public class Config {
     cfg.addCustomCategoryComment(
         category, "General Configuration, mainly for tweaking core mod features");
 
-    enableMod = cfg.getBoolean("Enable Mod", category, enableMod, enableModComment);
-
     serverMaxChunkLoad =
         cfg.getInt(
             "Maximum of Chunks loaded",
@@ -103,7 +96,7 @@ public class Config {
 
   private static void initFoundationConfig(Configuration cfg) {
     cfg.addCustomCategoryComment(CATEGORY_FOUNDATION, "Config on the foundation block");
-    minimumHardness = cfg.getInt("Minimum_Hardness", CATEGORY_FOUNDATION, minimumHardness, 5, maximumHardness, "min 5" );
+    minimumHardness = cfg.getInt("Minimum_Hardness", CATEGORY_FOUNDATION, minimumHardness, 5, maximumHardness, "min 5");
     maximumHardness = cfg.getInt("Maximum_Hardness", CATEGORY_FOUNDATION, maximumHardness, minimumHardness, 100000, "max 50000");
     startingHardness = cfg.getInt("Starting_Hardness", CATEGORY_FOUNDATION, startingHardness, minimumHardness, maximumHardness, "Starting Hardness");
   }

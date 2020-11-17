@@ -1,7 +1,7 @@
 package longerste.warmod.client.gui;
 
 import longerste.warmod.WarMod;
-import longerste.warmod.block.Foundation.FoundationContainer;
+import longerste.warmod.block.foundation.FoundationContainer;
 import longerste.warmod.networking.ModifyFoundationMessage;
 import longerste.warmod.networking.WMNetworkingHandler;
 import longerste.warmod.tile.FoundationTileEntity;

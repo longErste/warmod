@@ -1,6 +1,6 @@
 package longerste.warmod.client.gui;
 
-import longerste.warmod.block.Foundation.FoundationContainer;
+import longerste.warmod.block.foundation.FoundationContainer;
 import longerste.warmod.tile.FoundationTileEntity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

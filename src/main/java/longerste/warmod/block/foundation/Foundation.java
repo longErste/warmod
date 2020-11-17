@@ -1,4 +1,4 @@
-package longerste.warmod.block.Foundation;
+package longerste.warmod.block.foundation;
 
 import com.feed_the_beast.ftblib.lib.data.ForgePlayer;
 import com.feed_the_beast.ftblib.lib.data.ForgeTeam;
@@ -18,6 +18,7 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,6 +29,7 @@ public class Foundation extends TeamBlockBase {
 
   public Foundation() {
     super("foundation");
+    this.setResistance(3600000);
   }
 
   @Override
@@ -46,8 +48,7 @@ public class Foundation extends TeamBlockBase {
   }
 
   @Override
-  public void onBlockPlacedBy(
-      World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+  public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
     if (!worldIn.isRemote) {
       if (placer instanceof EntityPlayer) {
         EntityPlayer player = (EntityPlayer) placer;
@@ -86,6 +87,18 @@ public class Foundation extends TeamBlockBase {
       }
     }
     return true;
+  }
+
+  @Override
+  public void onBlockHarvested(World worldIn, BlockPos pos, IBlockState state, EntityPlayer player) {
+    if(!worldIn.isRemote){
+      TileEntity te = worldIn.getTileEntity(pos);
+      if(te instanceof FoundationTileEntity){
+        FoundationTileEntity fte = (FoundationTileEntity) te;
+        String message ="The lovely team: " + fte.getTeam().getTitle().getFormattedText() + " was destroyed LOL by" + player.getName() +". GG LOSERS";
+        worldIn.getMinecraftServer().getPlayerList().sendMessage(new TextComponentString(message));
+      }
+    }
   }
 
   @Override

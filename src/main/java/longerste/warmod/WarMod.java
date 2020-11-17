@@ -53,7 +53,7 @@ public class WarMod {
   @Mod.EventHandler
   public void init(FMLInitializationEvent e) {
     NetworkRegistry.INSTANCE.registerGuiHandler(WarMod.instance, new WMGUIHandler());
-    CapabilityManager.INSTANCE.register(ITeamPos.class, new TeamPosStorage(), TeamPos.class);
+    WMCapabilityHandler.RegisterCapability();
     MinecraftForge.EVENT_BUS.register(new WMCapabilityHandler());
     WMNetworkingHandler.registerPackets();
     proxy.init(e);

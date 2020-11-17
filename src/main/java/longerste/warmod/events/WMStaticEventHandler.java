@@ -1,12 +1,18 @@
 package longerste.warmod.events;
 
 import com.feed_the_beast.ftblib.events.team.ForgeTeamCreatedEvent;
+import com.feed_the_beast.ftblib.events.team.ForgeTeamDeletedEvent;
 import com.feed_the_beast.ftblib.lib.data.ForgePlayer;
 import com.feed_the_beast.ftblib.lib.data.Universe;
 import longerste.warmod.block.WMBlocks;
+import longerste.warmod.capability.TeamHardness.ITeamHardness;
+import longerste.warmod.capability.TeamHardness.TeamHardnessProvider;
 import longerste.warmod.capability.TeamPos.ITeamPos;
 import longerste.warmod.capability.TeamPos.TeamPosProvider;
+import longerste.warmod.networking.GetHardMap;
+import longerste.warmod.networking.WMNetworkingHandler;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
@@ -40,9 +46,26 @@ public class WMStaticEventHandler {
   }
 
   @SubscribeEvent
-  public static void GiveFoundation(ForgeTeamCreatedEvent event) {
-    if(event.getTeam() != null && event.getTeam().isValid() && event.getTeam().owner != null){
-      event.getTeam().owner.getPlayer().inventory.addItemStackToInventory(new ItemStack(WMBlocks.foundation, 1));
+  public static void GiveFoundationAndSetHardness(ForgeTeamCreatedEvent event) {
+    short id = event.getTeam().getUID();
+    ITeamHardness hardness = event.getUniverse().world.getCapability(TeamHardnessProvider.TEAM_HARDNESS_CAP, null);
+    hardness.setTeamHardness(id);
+    WMNetworkingHandler.dispatcher.sendToAll(new GetHardMap(id));
+    if (event.getTeam().isValid() && event.getTeam().owner != null) {
+      EntityPlayerMP owner = event.getTeam().owner.getPlayer();
+      ItemStack foundation = new ItemStack(WMBlocks.foundation, 1);
+      String message = "The team: " + event.getTeam().getTitle().getFormattedText() + "is created";
+      event.getTeam().universe.server.getPlayerList().sendMessage(new TextComponentString(message));
+      if (!owner.inventory.hasItemStack(foundation)) {
+        owner.inventory.addItemStackToInventory(new ItemStack(WMBlocks.foundation, 1));
+      } else {
+        owner.sendMessage(new TextComponentString("Why do you have a foundation block already huh ?"));
+      }
     }
+  }
+
+  @SubscribeEvent
+  public static void LoseWhenNoMemberInTeam(ForgeTeamDeletedEvent event) {
+    event.getUniverse().server.getPlayerList().sendMessage(new TextComponentString("Team Got YEETED: GG " + event.getTeam().getTitle().getFormattedText()));
   }
 }
